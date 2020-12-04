@@ -1,18 +1,28 @@
-package solutions;
+package solutions.day1;
 
 import reader.Reader;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class Day1 {
 
-    private final String FILENAME = "solutions.txt";
+    private final String FILENAME = "day1.txt";
     private final int SUM = 2020;
     private List<Integer> entries;
 
     public Day1(){
-        this.entries = Reader.readFileLineByLine(FILENAME);
+        this.entries = convertToListInteger(
+                Reader.readFileLineByLine(FILENAME)
+        );
+    }
+
+    private List<Integer> convertToListInteger(List<String> list){
+        List<Integer> integerList = list.stream()
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
+        return integerList;
     }
 
     public int task1 (){

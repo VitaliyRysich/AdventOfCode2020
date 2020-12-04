@@ -11,14 +11,14 @@ public class Reader {
 
     private final static String PATH = "src/main/resources/tasks/";
 
-    public static List<Integer> readFileLineByLine (String fileName){
-        List<Integer> list = new ArrayList<>();
+    public static List<String> readFileLineByLine (String fileName){
+        List<String> list = new ArrayList<>();
 
         try  {
 
             Path path = Paths.get(PATH + fileName);
             Files.lines(path)
-                    .forEach(line -> list.add(Integer.parseInt(line)));
+                    .forEach(line -> list.add(line));
 
         }
         catch (IOException e) {
