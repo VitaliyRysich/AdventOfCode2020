@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.nio.file.Path.*;
+
 public class Reader {
 
     private final static String PATH = "src/main/resources/tasks/";
@@ -28,4 +30,23 @@ public class Reader {
             return list;
         }
     }
+
+    public static String readFile (String fileName){
+
+        String content = "";
+
+        try
+        {
+            content = new String ( Files.readAllBytes( Paths.get(PATH + fileName) ) );
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return content;
+    }
+
+
+
 }
