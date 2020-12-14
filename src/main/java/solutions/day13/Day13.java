@@ -62,11 +62,8 @@ public class Day13 {
                 bussesMap.put(Integer.valueOf(busses.get(i)), i);
         }
 
-        List<Map.Entry<Integer, Integer>> list = new ArrayList<>(bussesMap.entrySet());
-
         long step = 1;
         long timestamp = 1;
-
 
         for(Map.Entry<Integer, Integer> bus: bussesMap.entrySet()) {
 
@@ -78,6 +75,4 @@ public class Day13 {
 
         return timestamp;
     }
-
-
 }
