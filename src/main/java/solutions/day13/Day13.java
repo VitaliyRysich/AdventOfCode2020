@@ -13,10 +13,6 @@ public class Day13 {
     private int time;
     private List<String> busses;
 
-    private Map<Integer, Integer> busTimestamps  = new TreeMap<>();
-
-
-
 
 
     public Day13(){
@@ -33,6 +29,8 @@ public class Day13 {
 
 
     public long task1 (){
+
+        Map<Integer, Integer> busTimestamps  = new TreeMap<>();
 
         List<Integer> bussesId = busses.stream()
                 .filter(e -> !e.equals("x"))
@@ -56,12 +54,30 @@ public class Day13 {
     }
 
 
+    public long task2 () {
 
-    public static void main(String[] args) {
-        Day13 d = new Day13();
-        System.out.println(d.busses);
+        Map<Integer, Integer> bussesMap = new HashMap<>();
+        for(int i = 0; i < busses.size(); i++){
+            if(!busses.get(i).equals("x"))
+                bussesMap.put(Integer.valueOf(busses.get(i)), i);
+        }
+
+        List<Map.Entry<Integer, Integer>> list = new ArrayList<>(bussesMap.entrySet());
+
+        long step = 1;
+        long timestamp = 1;
+
+
+        for(Map.Entry<Integer, Integer> bus: bussesMap.entrySet()) {
+
+            while ((timestamp + bus.getValue()) % bus.getKey() != 0){
+                timestamp +=step;
+            }
+            step *= bus.getKey();
+        }
+
+        return timestamp;
     }
-
 
 
 }
