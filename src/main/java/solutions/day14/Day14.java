@@ -11,7 +11,7 @@ public class Day14 {
     List<String> file;
 
     private int bites = 36;
-
+    private Map<Long, Long> memory = new HashMap<>();
 
 
     public Day14(){
@@ -25,7 +25,28 @@ public class Day14 {
 
     public long task1 (){
 
-        Map<Integer, Long> memory = new HashMap<>();
+        String mask = "";
+        for(String line: file){
+
+            String[] s = line.replace(" ", "").split("=");
+            if(s[0].contains("mask")){
+                mask = s[1];
+            }
+            else {
+                long mem = getMemoryValueFromStr(s[0]);
+
+                long givenValue = Long.parseLong(s[1]);
+                long changedValue = binaryToDecimal(putMaskOnBinary(decimalToBinary(givenValue), mask));
+
+                memory.put(mem, changedValue);
+            }
+        }
+        return getMemorySum();
+    }
+
+
+    public long task2 () {
+        memory.clear();
 
         String mask = "";
         for(String line: file){
@@ -35,35 +56,37 @@ public class Day14 {
                 mask = s[1];
             }
             else {
-                int mem = Integer.parseInt(s[0]
-                        .replace("mem", "")
-                        .replace("[", "")
-                        .replace("]", ""));
+                long mem = getMemoryValueFromStr(s[0]);
 
                 long givenValue = Long.parseLong(s[1]);
-                long changedValue = binaryToDecimal(putMaskOnBinary(decimalToBinary(givenValue), mask));
+                String memoryWithMask = putMaskOnMemory(decimalToBinary(mem), mask);
 
-                memory.put(mem, changedValue);
+                addAllMemoryCombinations(memoryWithMask, givenValue);
             }
         }
-
-        long sum = memory.values().stream()
-                .mapToLong(Long::longValue)
-                .sum();
-
-        return sum;
+        return getMemorySum();
     }
 
 
-    public long task2 () {
+    private long getMemorySum(){
+        return memory.values().stream()
+                .mapToLong(Long::longValue)
+                .sum();
+    }
 
-        return 0;
+
+    private long getMemoryValueFromStr(String str){
+        return Long.parseLong(str
+                .replace("mem", "")
+                .replace("[", "")
+                .replace("]", ""));
     }
 
 
     private String decimalToBinary(long val){
         StringBuilder s = new StringBuilder();
         s.append(Long.toBinaryString(val));
+
         for(int i=s.length(); i < bites; i++){
             s.insert(0, "0");
         }
@@ -71,8 +94,8 @@ public class Day14 {
     }
 
     private long binaryToDecimal(String val){
-        long decimal=Long.parseLong(val,2);
-        return decimal;
+        return Long.parseLong(val,2);
+
     }
 
     private String putMaskOnBinary(String val, String mask){
@@ -88,11 +111,30 @@ public class Day14 {
         return String.valueOf(valChar);
     }
 
+    private String putMaskOnMemory(String val, String mask){
+        char[] valChar = val.toCharArray();
+        char[] maskChar = mask.toCharArray();
 
-    public static void main(String[] args) {
-        Day14 d = new Day14();
-        System.out.println("110X1001110110X10100010X0000X010X11X".length());
-        System.out.println(d.decimalToBinary(101));
-        System.out.println(d.binaryToDecimal(d.putMaskOnBinary(d.decimalToBinary(101), "110X1001110110X10100010X0000X010X11X")));
+        for(int i = 0; i < bites; i++){
+            if(maskChar[i] != '0'){
+                valChar[i] = maskChar[i];
+            }
+        }
+
+        return String.valueOf(valChar);
+    }
+
+    private void addAllMemoryCombinations(String mem, Long val){
+        if(mem.contains("X")){
+            int idx = mem.indexOf("X");
+            String combination1 = mem.substring(0,idx)+'0'+mem.substring(idx+1);
+            String combination2 = mem.substring(0,idx)+'1'+mem.substring(idx+1);
+
+            addAllMemoryCombinations(combination1, val);
+            addAllMemoryCombinations(combination2, val);
+        }
+        else {
+            memory.put(binaryToDecimal(mem), val);
+        }
     }
 }
