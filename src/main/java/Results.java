@@ -3,6 +3,7 @@ import solutions.day10.Day10;
 import solutions.day11.Day11;
 import solutions.day12.Day12;
 import solutions.day13.Day13;
+import solutions.day14.Day14;
 import solutions.day2.Day2;
 import solutions.day3.Day3;
 import solutions.day4.Day4;
@@ -28,6 +29,7 @@ public class Results {
         Day11 day11 = new Day11();
         Day12 day12 = new Day12();
         Day13 day13 = new Day13();
+        Day14 day14 = new Day14();
 
         /*System.out.println(String.format("Day1 {Task1: %d, Task2: %d}", day1.task1(), day1.task2()));
         System.out.println(String.format("Day2 {Task1: %d, Task2: %d}", day2.task1(), day2.task2()));
@@ -40,7 +42,8 @@ public class Results {
         System.out.println(String.format("Day9 {Task1: %d, Task2: %d}", day9.task1(), day9.task2()));
         System.out.println(String.format("Day10 {Task1: %d, Task2: %d}", day10.task1(), day10.task2()));
         System.out.println(String.format("Day11 {Task1: %d, Task2: %d}", day11.task1(), day11.task2()));
-        System.out.println(String.format("Day12 {Task1: %d, Task2: %d}", day12.task1(), day12.task2()));*/
-        System.out.println(String.format("Day13 {Task1: %d, Task2: %d}", day13.task1(), day13.task2()));
+        System.out.println(String.format("Day12 {Task1: %d, Task2: %d}", day12.task1(), day12.task2()));
+        System.out.println(String.format("Day13 {Task1: %d, Task2: %d}", day13.task1(), day13.task2()));*/
+        System.out.println(String.format("Day14 {Task1: %d, Task2: %d}", day14.task1(), day14.task2()));
     }
 }
